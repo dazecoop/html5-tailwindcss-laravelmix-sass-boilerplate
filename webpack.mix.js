@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const tailwindcss = require('tailwindcss');
 require('laravel-mix-eslint');
 
 mix
@@ -6,15 +7,12 @@ mix
   // JS
   .js('./src/js/app.js', './dist/js').eslint()
 
-  // CSS
-  .postCss('./src/css/style.css', './dist/css/style.css', [
-    require('postcss-import'),
-    require('tailwindcss'),
-    require('postcss-nested'),
-  ])
+  // SASS
+  .sass('./src/sass/style.scss', './dist/css')
 
   // Options
   .options({
+    postCss: [ tailwindcss('./tailwind.config.js') ],
     processCssUrls: false,
     terser: {
       extractComments: false, // Stop Mix from generating license file
